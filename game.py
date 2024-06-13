@@ -13,7 +13,7 @@ def game_loop(difficulty, level):
 
     bricks = load_level(level)
 
-    pygame.mixer.music.play(-1)  # Play background music indefinitely
+    pygame.mixer.music.play(-1)
 
     while True:
         screen.fill(BLACK)
@@ -51,27 +51,28 @@ def game_loop(difficulty, level):
 
             if ball.left <= 10 or ball.right >= SCREEN_WIDTH - 10:
                 ball_dx = -ball_dx
-                play_sound(SOUND_BOUNCE, volume)
-
+                set_sound_volume(bounce_sound, volume)
+                play_sound(bounce_sound)
             if ball.top <= 10:
                 ball_dy = -ball_dy
-                play_sound(SOUND_BOUNCE, volume)
-
+                set_sound_volume(bounce_sound, volume)
+                play_sound(bounce_sound)
             if ball.colliderect(paddle):
                 ball_dy = -ball_dy
-                play_sound(SOUND_BOUNCE, volume)
-
+                set_sound_volume(bounce_sound, volume)
+                play_sound(bounce_sound)
             if ball.bottom >= SCREEN_HEIGHT:
-                play_sound(SOUND_BOUNCE, volume)
+                set_sound_volume(bounce_sound, volume)
+                play_sound(bounce_sound)                
                 return 'game_over'
 
-            # Improved collision detection
             brick_collision = ball.collidelistall([brick[0] for brick in bricks])
             if brick_collision:
                 ball_dy = -ball_dy
                 for index in sorted(brick_collision, reverse=True):
                     bricks.pop(index)
-                    play_sound(SOUND_BREAK, volume)
+                    set_sound_volume(break_sound, volume)
+                    play_sound(break_sound)
 
             if not bricks:
                 return 'next_level'
@@ -145,10 +146,12 @@ def pause_menu():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
                     selected_option = (selected_option + 1) % len(options)
-                    play_sound(SOUND_MENU_MOVE, volume)
+                    set_sound_volume(menu_move_sound, volume)
+                    play_sound(menu_move_sound)
                 elif event.key == pygame.K_UP:
                     selected_option = (selected_option - 1) % len(options)
-                    play_sound(SOUND_MENU_MOVE, volume)
+                    set_sound_volume(menu_move_sound, volume)
+                    play_sound(menu_move_sound)
                 elif event.key == pygame.K_RETURN:
                     if options[selected_option] == "Reanudar":
                         return

@@ -31,10 +31,12 @@ def main_menu():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
                     selected_option = (selected_option + 1) % len(options)
-                    play_sound(SOUND_MENU_MOVE, volume)
+                    set_sound_volume(menu_move_sound, volume)
+                    play_sound(menu_move_sound)
                 elif event.key == pygame.K_UP:
                     selected_option = (selected_option - 1) % len(options)
-                    play_sound(SOUND_MENU_MOVE, volume)
+                    set_sound_volume(menu_move_sound, volume)
+                    play_sound(menu_move_sound)
                 elif event.key == pygame.K_RETURN:
                     if options[selected_option] == "Jugar":
                         return 'play'
@@ -47,7 +49,7 @@ def main_menu():
 def options_menu():
     global volume
     selected_option = 0
-    options = ["Volumen General", "Volumen de Música", "Volumen de Opciones", "Volumen de Juego", "Volver"]
+    options = ["Volumen General", "Volver"]
 
     while True:
         screen.fill(BLACK)
@@ -69,19 +71,13 @@ def options_menu():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
                     selected_option = (selected_option + 1) % len(options)
-                    play_sound(SOUND_MENU_MOVE, volume)
+                    play_sound(menu_move_sound)
                 elif event.key == pygame.K_UP:
                     selected_option = (selected_option - 1) % len(options)
-                    play_sound(SOUND_MENU_MOVE, volume)
+                    play_sound(menu_move_sound)
                 elif event.key == pygame.K_RETURN:
                     if options[selected_option] == "Volumen General":
                         adjust_volume('general')
-                    elif options[selected_option] == "Volumen de Música":
-                        adjust_volume('music')
-                    elif options[selected_option] == "Volumen de Opciones":
-                        adjust_volume('menu')
-                    elif options[selected_option] == "Volumen de Juego":
-                        adjust_volume('game')
                     elif options[selected_option] == "Volver":
                         return
 
@@ -138,10 +134,12 @@ def difficulty_menu():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
                     selected_option = (selected_option + 1) % len(options)
-                    play_sound(SOUND_MENU_MOVE, volume)
+                    set_sound_volume(menu_move_sound, volume)
+                    play_sound(menu_move_sound)
                 elif event.key == pygame.K_UP:
                     selected_option = (selected_option - 1) % len(options)
-                    play_sound(SOUND_MENU_MOVE, volume)
+                    set_sound_volume(menu_move_sound, volume)
+                    play_sound(menu_move_sound)
                 elif event.key == pygame.K_RETURN:
                     difficulties = ["easy", "normal", "hard"]
                     return difficulties[selected_option]
