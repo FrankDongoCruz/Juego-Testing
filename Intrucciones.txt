@@ -1,5 +1,5 @@
 1. Instalar python.
-2. Instalar pygame: pip install pygame
+2. Instalar pygame: abrir un cmd y escribir "pip install pygame"
 3. Descargar todos los archivos del github y colocarlos en una carpeta a eleccion
 4. abrir un cmd y dirigirte a la carpeta donde colocaste los archivos.
 5. Cuando el cmd este ubicado en el directorio escribes "python main.py" para iniciar el juego.
