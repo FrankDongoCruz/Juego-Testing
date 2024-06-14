@@ -5,9 +5,8 @@ from levels import load_level
 from menu import options_menu
 
 def game_loop(difficulty, level):
-    paddle = pygame.Rect(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT - 30, 100, 10)
-    ball_size = 25
-    ball = pygame.Rect(SCREEN_WIDTH // 2 - 10, SCREEN_HEIGHT // 2 - 10, 20, 20)
+    paddle = pygame.Rect(SCREEN_WIDTH // 2 - 75, SCREEN_HEIGHT - 30, 150, 20)
+    ball = pygame.Rect(SCREEN_WIDTH // 2 - 15, SCREEN_HEIGHT // 2 - 15, 30, 30)
     ball_dx, ball_dy = BALL_SPEED[difficulty], -BALL_SPEED[difficulty]
     in_play = False
 
@@ -35,7 +34,7 @@ def game_loop(difficulty, level):
                 if event.key == pygame.K_ESCAPE:
                     if pause_menu() == 'quit':
                         return 'game_over'
-                elif event.key == pygame.K_SPACE or event.type == pygame.MOUSEBUTTONDOWN:
+                elif event.key == pygame.K_SPACE:
                     in_play = True
                 elif event.key == pygame.K_w:
                     return 'next_level'

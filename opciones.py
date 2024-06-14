@@ -3,8 +3,8 @@ import os
 
 pygame.init()
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 1400
+SCREEN_HEIGHT = 800
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Rompe Bloques')
 
@@ -16,13 +16,13 @@ FONT = pygame.font.Font(None, 74)
 SMALL_FONT = pygame.font.Font(None, 36)
 
 BACKGROUND_IMAGE = pygame.transform.scale(pygame.image.load('background.png'), (SCREEN_WIDTH, SCREEN_HEIGHT))
-PADDLE_IMAGE = pygame.transform.scale(pygame.image.load('paddle.png'), (120, 15))
-BALL_IMAGE = pygame.transform.scale(pygame.image.load('ball.png'), (25, 25))
+PADDLE_IMAGE = pygame.transform.scale(pygame.image.load('paddle.png'), (150, 20))
+BALL_IMAGE = pygame.transform.scale(pygame.image.load('ball.png'), (30, 30))
 WIN_SCREEN_IMAGE = pygame.transform.scale(pygame.image.load('winscreen.png'), (SCREEN_WIDTH, SCREEN_HEIGHT))
 GAME_OVER_IMAGE = pygame.transform.scale(pygame.image.load('perdiste.png'), (SCREEN_WIDTH, SCREEN_HEIGHT))
 
-PADDLE_SPEED = 10
-BALL_SPEED = {'easy': 3, 'normal': 5, 'hard': 7}
+PADDLE_SPEED = 20
+BALL_SPEED = {'easy': 7, 'normal': 10, 'hard': 15}
 
 SOUND_PATH = 'sonido/'
 SOUND_BOUNCE = os.path.join(SOUND_PATH, 'bounce.wav')

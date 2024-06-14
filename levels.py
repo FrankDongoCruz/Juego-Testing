@@ -9,7 +9,7 @@ def load_block_textures():
         filename = f'bloque{i}.png'
         filepath = os.path.join(bloques_dir, filename)
         block_texture = pygame.image.load(filepath).convert_alpha()
-        block_texture_resized = pygame.transform.scale(block_texture, (65, 25))
+        block_texture_resized = pygame.transform.scale(block_texture, (100, 45))
         block_textures.append(block_texture_resized)
     return block_textures
 
@@ -19,10 +19,10 @@ def load_level(level):
     screen_width, screen_height = get_screen_dimensions()
 
     if level == 1:
-        num_rows = 5
-        num_cols = 9
-        brick_width = 65
-        brick_height = 25
+        num_rows = 6
+        num_cols = 12
+        brick_width = 100
+        brick_height = 45
         level_width = num_cols * brick_width
         level_height = num_rows * brick_height
 
@@ -38,8 +38,8 @@ def load_level(level):
     elif level == 2:
         num_rows = 7
         num_cols = 11
-        brick_width = 65
-        brick_height = 25
+        brick_width = 100
+        brick_height = 45
         level_width = num_cols * brick_width
         level_height = num_rows * brick_height
 
