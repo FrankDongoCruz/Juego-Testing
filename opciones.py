@@ -12,7 +12,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 
-FONT = pygame.font.Font(None, 74)
+FONT = pygame.font.Font(None, 100)
 SMALL_FONT = pygame.font.Font(None, 36)
 
 BACKGROUND_IMAGE = pygame.transform.scale(pygame.image.load('background.png'), (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -43,7 +43,7 @@ menu_move_sound = load_sound(SOUND_MENU_MOVE)
 
 def play_sound(sound):
     sound.play()
-    
+
 def set_sound_volume(sound, volume):
     sound.set_volume(volume)
 

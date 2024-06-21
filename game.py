@@ -4,12 +4,19 @@ from opciones import *
 from levels import load_level
 from menu import options_menu
 
+def draw_score(screen, score):
+    font = pygame.font.Font(None, 100)
+    score_text = font.render(f"{score}", True, WHITE)
+    screen.blit(score_text, (10, 10))
+
 def game_loop(difficulty, level):
     paddle = pygame.Rect(SCREEN_WIDTH // 2 - 75, SCREEN_HEIGHT - 30, 150, 20)
     ball = pygame.Rect(SCREEN_WIDTH // 2 - 15, SCREEN_HEIGHT // 2 - 15, 30, 30)
     ball_dx, ball_dy = BALL_SPEED[difficulty], -BALL_SPEED[difficulty]
     in_play = False
-
+    
+    score = 0
+    
     bricks = load_level(level)
 
     pygame.mixer.music.play(-1)
@@ -22,8 +29,11 @@ def game_loop(difficulty, level):
 
         for brick_rect, brick_texture in bricks:
             screen.blit(brick_texture, brick_rect.topleft)
+            
+        draw_score(screen, score)
 
         pygame.draw.rect(screen, BLACK, (0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), 10)
+        
         pygame.display.flip()
 
         for event in pygame.event.get():
@@ -68,6 +78,7 @@ def game_loop(difficulty, level):
             brick_collision = ball.collidelistall([brick[0] for brick in bricks])
             if brick_collision:
                 ball_dy = -ball_dy
+                
                 for index in sorted(brick_collision, reverse=True):
                     bricks.pop(index)
                     set_sound_volume(break_sound, volume)

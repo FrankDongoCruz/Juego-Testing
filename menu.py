@@ -38,6 +38,7 @@ def main_menu():
                     set_sound_volume(menu_move_sound, volume)
                     play_sound(menu_move_sound)
                 elif event.key == pygame.K_RETURN:
+                    print(f"Selected option: {options[selected_option]}")
                     if options[selected_option] == "Jugar":
                         return 'play'
                     elif options[selected_option] == "Opciones":
@@ -45,6 +46,7 @@ def main_menu():
                     elif options[selected_option] == "Salir":
                         pygame.quit()
                         sys.exit()
+
 
 def options_menu():
     global volume
@@ -66,8 +68,7 @@ def options_menu():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                return 'quit'
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
                     selected_option = (selected_option + 1) % len(options)
@@ -79,7 +80,7 @@ def options_menu():
                     if options[selected_option] == "Volumen General":
                         adjust_volume('general')
                     elif options[selected_option] == "Volver":
-                        return
+                        return 'back'
 
 def adjust_volume(volume_type):
     global volume
@@ -98,8 +99,7 @@ def adjust_volume(volume_type):
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                return 'quit'
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     return
@@ -129,8 +129,7 @@ def difficulty_menu():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+                return 'quit'
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
                     selected_option = (selected_option + 1) % len(options)
