@@ -2,7 +2,18 @@ import pygame
 import sys
 from opciones import *
 from levels import load_level
-from menu import options_menu
+from menu import *
+
+LOSE_SOUND = pygame.mixer.Sound("sonido/perdiste.mp3")
+WIN_SOUND = pygame.mixer.Sound("sonido/ganaste.mp3")
+
+score = 0 
+
+def play_win_sound():
+    WIN_SOUND.play()
+
+def play_lose_sound():
+    LOSE_SOUND.play()
 
 def draw_score(screen, score):
     font = pygame.font.Font(None, 100)
@@ -10,7 +21,9 @@ def draw_score(screen, score):
     screen.blit(score_text, (10, 10))
 
 def game_loop(difficulty, level):
-    paddle = pygame.Rect(SCREEN_WIDTH // 2 - 75, SCREEN_HEIGHT - 30, 150, 20)
+    global score
+    paddle_width, paddle_height = PADDLE_SIZE[difficulty]
+    paddle = pygame.Rect(SCREEN_WIDTH // 2 - paddle_width // 2, SCREEN_HEIGHT - 30, paddle_width, paddle_height)
     ball = pygame.Rect(SCREEN_WIDTH // 2 - 15, SCREEN_HEIGHT // 2 - 15, 30, 30)
     ball_dx, ball_dy = BALL_SPEED[difficulty], -BALL_SPEED[difficulty]
     in_play = False
@@ -81,6 +94,7 @@ def game_loop(difficulty, level):
                 
                 for index in sorted(brick_collision, reverse=True):
                     bricks.pop(index)
+                    score += 1
                     set_sound_volume(break_sound, volume)
                     play_sound(break_sound)
 
@@ -88,15 +102,19 @@ def game_loop(difficulty, level):
                 return 'next_level'
 
 def game_win():
+    play_win_sound()
+    global score
     while True:
         screen.fill(BLACK)
         screen.blit(WIN_SCREEN_IMAGE, (0, 0))
 
         win_text = FONT.render("Ganaste", True, WHITE)
+        score_text = FONT.render(f"Puntuación: {score}", True, WHITE)
         continue_text = SMALL_FONT.render("Presiona Enter para continuar", True, WHITE)
 
         screen.blit(win_text, (SCREEN_WIDTH//2 - win_text.get_width()//2, 200))
-        screen.blit(continue_text, (SCREEN_WIDTH//2 - continue_text.get_width()//2, 300))
+        screen.blit(score_text, (SCREEN_WIDTH//2 - score_text.get_width()//2, 300))
+        screen.blit(continue_text, (SCREEN_WIDTH//2 - continue_text.get_width()//2, 400))
 
         pygame.display.flip()
 
@@ -106,20 +124,26 @@ def game_win():
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    score = 0
                     return
                 elif event.key == pygame.K_ESCAPE:
+                    score = 0 
                     return
 
 def game_over():
+    play_lose_sound()
+    global score
     while True:
         screen.fill(BLACK)
         screen.blit(GAME_OVER_IMAGE, (0, 0))
 
         over_text = FONT.render("GAME OVER", True, WHITE)
+        score_text = FONT.render(f"Puntuación: {score}", True, WHITE)
         continue_text = SMALL_FONT.render("Presiona Enter para continuar o Esc para salir", True, WHITE)
 
         screen.blit(over_text, (SCREEN_WIDTH//2 - over_text.get_width()//2, 200))
-        screen.blit(continue_text, (SCREEN_WIDTH//2 - continue_text.get_width()//2, 300))
+        screen.blit(score_text, (SCREEN_WIDTH//2 - score_text.get_width()//2, 300))
+        screen.blit(continue_text, (SCREEN_WIDTH//2 - continue_text.get_width()//2, 400))
 
         pygame.display.flip()
 
@@ -129,6 +153,7 @@ def game_over():
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    score = 0
                     return
                 elif event.key == pygame.K_ESCAPE:
                     pygame.quit()

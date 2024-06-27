@@ -16,10 +16,19 @@ FONT = pygame.font.Font(None, 100)
 SMALL_FONT = pygame.font.Font(None, 36)
 
 BACKGROUND_IMAGE = pygame.transform.scale(pygame.image.load('background.png'), (SCREEN_WIDTH, SCREEN_HEIGHT))
-PADDLE_IMAGE = pygame.transform.scale(pygame.image.load('paddle.png'), (150, 20))
 BALL_IMAGE = pygame.transform.scale(pygame.image.load('ball.png'), (30, 30))
 WIN_SCREEN_IMAGE = pygame.transform.scale(pygame.image.load('winscreen.png'), (SCREEN_WIDTH, SCREEN_HEIGHT))
 GAME_OVER_IMAGE = pygame.transform.scale(pygame.image.load('perdiste.png'), (SCREEN_WIDTH, SCREEN_HEIGHT))
+
+PADDLE_SIZE = {
+    'easy': (250, 20),
+    'normal': (120, 20),
+    'hard': (100, 20)
+}
+current_difficulty = 'normal'
+PADDLE_IMAGE = pygame.transform.scale(pygame.image.load('paddle.png'), PADDLE_SIZE[current_difficulty])
+
+PADDLE_IMAGE = pygame.transform.scale(pygame.image.load('paddle.png'), (150, 20))
 
 PADDLE_SPEED = 20
 BALL_SPEED = {'easy': 7, 'normal': 10, 'hard': 15}
@@ -64,3 +73,8 @@ def get_screen_dimensions():
 
 def get_images():
     return BACKGROUND_IMAGE, PADDLE_IMAGE, BALL_IMAGE, WIN_SCREEN_IMAGE, GAME_OVER_IMAGE
+    
+def set_difficulty(difficulty):
+    global current_difficulty, PADDLE_IMAGE
+    current_difficulty = difficulty
+    PADDLE_IMAGE = pygame.transform.scale(pygame.image.load('paddle.png'), PADDLE_SIZE[current_difficulty])
